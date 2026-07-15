@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>View Responses</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-header">
+
+        <h2>Submitted Responses</h2>
+
+        <div>
+
+            <a href="/form" class="top-btn">➕ New Entry</a>
+
+            <a href="/download" class="top-btn">📥 Download Excel</a>
+
+            <a href="/logout" class="top-btn logout">Logout</a>
+
+        </div>
+
+    </div>
+
+    <div class="stats-card">
+
+        <h3>Total Entries : {{ data|length }}</h3>
+
+    </div>
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search..."
+            onkeyup="searchTable()">
+
+    </div>
+
+    <div class="table-container">
+
+        <table id="responseTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Sl No</th>
+                    <th>Name</th>
+                    <th>Reference Person</th>
+                    <th>Number of People</th>
+                    <th>Vehicle Number</th>
+                    <th>Entry Time</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for row in data %}
+
+                <tr>
+
+                    <td>{{ loop.index }}</td>
+
+                    <td>{{ row["Name"] }}</td>
+
+                    <td>{{ row["Reference Person"] }}</td>
+
+                    <td>{{ row["Number of People"] }}</td>
+
+                    <td>{{ row["Vehicle Number"] }}</td>
+
+                    <td>{{ row["Entry Time"] }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+function searchTable() {
+
+    let input = document.getElementById("searchInput");
+
+    let filter = input.value.toUpperCase();
+
+    let table = document.getElementById("responseTable");
+
+    let tr = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < tr.length; i++) {
+
+        let found = false;
+
+        let td = tr[i].getElementsByTagName("td");
+
+        for (let j = 0; j < td.length; j++) {
+
+            if (td[j]) {
+
+                let txt = td[j].textContent || td[j].innerText;
+
+                if (txt.toUpperCase().indexOf(filter) > -1) {
+
+                    found = true;
+
+                    break;
+
+                }
+
+            }
+
+        }
+
+        tr[i].style.display = found ? "" : "none";
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

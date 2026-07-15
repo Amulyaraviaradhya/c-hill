@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Visitor Register</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-header">
+
+        <h2>Visitor Register (Live)</h2>
+
+        <h3>Total Visitors :
+            <span id="total">{{ data|length }}</span>
+        </h3>
+
+    </div>
+
+    <div class="table-container">
+
+        <table id="visitorTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Sl No</th>
+                    <th>Name</th>
+                    <th>Reference Person</th>
+                    <th>Number of People</th>
+                    <th>Vehicle Number</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tableBody">
+
+                {% for row in data %}
+
+                <tr>
+
+                    <td>{{ loop.index }}</td>
+
+                    <td>{{ row["Name"] }}</td>
+
+                    <td>{{ row["Reference Person"] }}</td>
+
+                    <td>{{ row["Number of People"] }}</td>
+
+                    <td>{{ row["Vehicle Number"] }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+async function loadData(){
+
+    const response = await fetch("/api/data");
+
+    const data = await response.json();
+
+    document.getElementById("total").innerHTML = data.length;
+
+    let html = "";
+
+    data.forEach((row,index)=>{
+
+        html += `
+        <tr>
+
+            <td>${index+1}</td>
+
+            <td>${row["Name"]}</td>
+
+            <td>${row["Reference Person"]}</td>
+
+            <td>${row["Number of People"]}</td>
+
+            <td>${row["Vehicle Number"]}</td>
+
+        </tr>
+        `;
+
+    });
+
+    document.getElementById("tableBody").innerHTML = html;
+
+}
+
+loadData();
+
+setInterval(loadData,10000);
+
+</script>
+
+</body>
+
+</html>

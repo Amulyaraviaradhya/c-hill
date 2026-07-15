@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vehicle Entry Form</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="top-bar">
+
+        <h2>Vehicle Entry Form</h2>
+
+        <div>
+
+            <a href="/dashboard" class="top-btn">View Responses</a>
+
+            
+
+            <a href="/logout" class="top-btn logout">Logout</a>
+
+        </div>
+
+    </div>
+
+    <div class="form-card">
+
+        <div class="form-header">
+
+            <h1>Visitor Details</h1>
+
+            <p>Please fill all the required fields.</p>
+
+        </div>
+
+        <form method="POST">
+
+            <!-- Name -->
+
+            <div class="form-group">
+
+                <label>Name <span class="required">*</span></label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter Name"
+                    required>
+
+            </div>
+
+            <!-- Reference Person -->
+
+            <div class="form-group">
+
+                <label>Reference Person <span class="required">*</span></label>
+
+                <input
+                    type="text"
+                    name="reference"
+                    placeholder="Enter Reference Person"
+                    required>
+
+            </div>
+
+            <!-- Number of People -->
+
+            <div class="form-group">
+
+                <label>Number of People <span class="required">*</span></label>
+
+                <input
+                    type="number"
+                    name="people"
+                    min="1"
+                    placeholder="Enter Number of People"
+                    required>
+
+            </div>
+
+            <!-- Vehicle Number -->
+
+            <div class="form-group">
+
+                <label>Vehicle Number <span class="required">*</span></label>
+
+                <input
+                    type="text"
+                    name="vehicle"
+                    placeholder="Example: KA09AB1234"
+                    style="text-transform:uppercase;"
+                    required>
+
+            </div>
+
+            <div class="submit-area">
+
+                <button type="submit" class="submit-btn">
+
+                    Submit
+
+                </button>
+
+                <button type="reset" class="reset-btn">
+
+                    Clear Form
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
